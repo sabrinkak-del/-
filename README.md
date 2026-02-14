@@ -1,47 +1,47 @@
-# AI Chat
+# פיצה נאפולי 🍕
 
-A minimal AI-powered web chatbot using OpenAI's GPT API with streaming responses.
+אתר פיצרייה עם דף תדמית ומערכת הזמנות אונליין. בנוי עם Python + FastAPI ופרונט וניל HTML/CSS/JS בעברית (RTL).
 
-## Prerequisites
+## תכונות
+
+- דף נחיתה עם מידע על הפיצרייה
+- תפריט פיצות דינמי עם תוספות
+- עגלת קניות עם סיכום הזמנה
+- טופס הזמנה עם שם, טלפון, כתובת והערות
+- עיצוב רספונסיבי (מובייל + דסקטופ)
+- הכל בעברית עם תמיכה מלאה ב-RTL
+
+## דרישות
 
 - Python 3.11+
-- An OpenAI API key
 
-## Setup
-
-1. Clone the repository
-
-2. Create a virtual environment and install dependencies:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-
-3. Copy `.env.example` to `.env` and add your OpenAI API key:
-   ```bash
-   cp .env.example .env
-   # Edit .env and set OPENAI_API_KEY
-   ```
-
-## Run
+## התקנה והרצה
 
 ```bash
+python -m venv venv
+source venv/bin/activate  # ב-Windows: venv\Scripts\activate
+pip install -r requirements.txt
 python server.py
 ```
 
-Open http://localhost:8000 in your browser.
+פתחו http://localhost:8000 בדפדפן.
 
-## Configuration
+## מבנה הפרויקט
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `OPENAI_API_KEY` | *(required)* | Your OpenAI API key |
-| `OPENAI_MODEL` | `gpt-4o` | The OpenAI model to use |
+```
+├── server.py          # שרת FastAPI + API הזמנות + תפריט
+├── static/
+│   ├── index.html     # דף הבית + תפריט + הזמנה + צור קשר
+│   ├── style.css      # עיצוב RTL
+│   └── app.js         # לוגיקת עגלה והזמנות
+├── requirements.txt   # דרישות Python
+└── .env.example       # משתני סביבה
+```
 
 ## API
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/api/chat` | Send messages, receive streamed AI response (SSE) |
-| `GET` | `/api/health` | Health check |
+| מתודה | נתיב | תיאור |
+|-------|------|-------|
+| `GET` | `/api/menu` | מחזיר תפריט פיצות ותוספות |
+| `POST` | `/api/order` | שולח הזמנה חדשה |
+| `GET` | `/api/health` | בדיקת תקינות |
