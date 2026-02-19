@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פיצה נאפולי | הפיצרייה הכי טובה בעיר</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">🍕 פיצה נאפולי</a>
+            <div class="nav-links">
+                <a href="#hero">בית</a>
+                <a href="#about">אודות</a>
+                <a href="#menu">תפריט</a>
+                <a href="#order">הזמנה</a>
+                <a href="#contact">צור קשר</a>
+            </div>
+            <button id="cart-btn" onclick="toggleCart()">
+                🛒 <span id="cart-count">0</span>
+            </button>
+            <button class="menu-toggle" onclick="toggleNav()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-overlay">
+            <h1>פיצה נאפולי</h1>
+            <p>פיצה איטלקית אותנטית מהתנור שלנו אליכם הביתה</p>
+            <a href="#menu" class="btn btn-primary">לתפריט</a>
+            <a href="tel:03-1234567" class="btn btn-secondary">📞 03-1234567</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>הסיפור שלנו</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon">🇮🇹</div>
+                    <h3>מסורת איטלקית</h3>
+                    <p>מתכונים מקוריים מנאפולי, איטליה. בצק שמתפח 48 שעות לטעם מושלם.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🔥</div>
+                    <h3>תנור אבן</h3>
+                    <p>אופים ב-400 מעלות בתנור אבן אותנטי. הפיצה מוכנה תוך 90 שניות.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🌿</div>
+                    <h3>חומרי גלם טריים</h3>
+                    <p>רק חומרי גלם איכותיים וטריים. גבינות מיובאות, ירקות מהשוק.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <h2>התפריט שלנו</h2>
+            <p class="section-subtitle">בחרו את הפיצה האהובה עליכם והוסיפו לעגלה</p>
+            <div id="menu-grid" class="menu-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Toppings Modal -->
+    <div id="toppings-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 id="modal-title"></h3>
+            <p>בחרו תוספות:</p>
+            <div id="toppings-list"></div>
+            <div class="modal-footer">
+                <div class="quantity-control">
+                    <button onclick="changeQty(-1)">−</button>
+                    <span id="modal-qty">1</span>
+                    <button onclick="changeQty(1)">+</button>
+                </div>
+                <button class="btn btn-primary" onclick="confirmAdd()">הוסף לעגלה</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>🛒 העגלה שלי</h3>
+            <button onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <p class="cart-empty">העגלה ריקה</p>
+        </div>
+        <div id="cart-footer" class="cart-footer" style="display:none">
+            <div class="cart-total">סה"כ: ₪<span id="cart-total">0</span></div>
+            <a href="#order" class="btn btn-primary" onclick="toggleCart()">להזמנה</a>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Order Section -->
+    <section id="order">
+        <div class="container">
+            <h2>ביצוע הזמנה</h2>
+            <div id="order-summary"></div>
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="order-name">שם מלא</label>
+                    <input type="text" id="order-name" required placeholder="ישראל ישראלי">
+                </div>
+                <div class="form-group">
+                    <label for="order-phone">טלפון</label>
+                    <input type="tel" id="order-phone" required placeholder="050-1234567">
+                </div>
+                <div class="form-group">
+                    <label for="order-address">כתובת למשלוח</label>
+                    <input type="text" id="order-address" required placeholder="רחוב הרצל 1, תל אביב">
+                </div>
+                <div class="form-group">
+                    <label for="order-notes">הערות</label>
+                    <textarea id="order-notes" rows="2" placeholder="ללא בצל, קומה 3, וכו'"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" id="submit-btn">שלח הזמנה</button>
+            </form>
+            <div id="order-confirmation" style="display:none"></div>
+        </div>
+    </section>
+
+    <!-- Contact / Info Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>צור קשר</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>📍 כתובת</h3>
+                    <p>רחוב דיזנגוף 100<br>תל אביב</p>
+                </div>
+                <div class="contact-card">
+                    <h3>📞 טלפון</h3>
+                    <p><a href="tel:03-1234567">03-1234567</a></p>
+                </div>
+                <div class="contact-card">
+                    <h3>🕐 שעות פתיחה</h3>
+                    <p>ראשון–חמישי: 11:00–23:00<br>שישי: 11:00–15:00<br>שבת: סגור</p>
+                </div>
+                <div class="contact-card">
+                    <h3>🚗 משלוחים</h3>
+                    <p>משלוח חינם מעל ₪80<br>עד 45 דקות</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 פיצה נאפולי. כל הזכויות שמורות.</p>
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+</html>
